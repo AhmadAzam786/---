@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    margin: 0;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <form id="ageForm">
+            <div class="input-group">
+                <label for="birthdate">Enter your birthdate:</label>
+                <input type="date" id="birthdate" name="birthdate" required>
+            </div>
+            <div class="input-group">
+                <label for="checkdate">Check age on this date:</label>
+                <input type="date" id="checkdate" name="checkdate" required>
+            </div>
+            <button type="button" onclick="calculateAge()">Calculate Age</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        function calculateAge() {
+    const birthdateInput = document.getElementById('birthdate').value;
+    const checkdateInput = document.getElementById('checkdate').value;
+
+    if (!birthdateInput || !checkdateInput) {
+        alert('Please enter both dates');
+        return;
+    }
+
+    const birthdate = new Date(birthdateInput);
+    const checkdate = new Date(checkdateInput);
+
+    if (checkdate < birthdate) {
+        alert('The check date cannot be earlier than the birthdate');
+        return;
+    }
+
+    let age = checkdate.getFullYear() - birthdate.getFullYear();
+    const monthDifference = checkdate.getMonth() - birthdate.getMonth();
+
+    if (monthDifference < 0 || (monthDifference === 0 && checkdate.getDate() < birthdate.getDate())) {
+        age--;
+    }
+
+    document.getElementById('result').textContent = `You are/will be ${age} years old on ${checkdateInput}.`;
+}
+
+    </script>
+</body>
+</html>
